@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const fs = require('fs')
 
 // csv file from http://api.bitcoincharts.com/v1/csv/
@@ -8,7 +10,7 @@ const fs = require('fs')
 
 fs.readFile('thUSD.csv', (err, csvString) => {
   fs.writeFile('theUSD.js',
-    'const theUSD = ' + JSON.stringify(
+    'const theUSD=' + JSON.stringify(
       csvString.toString().trim()
         .split('\n').map(l=>l.split(','))
     )
