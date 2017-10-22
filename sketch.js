@@ -5,6 +5,7 @@ let time = 0, points = []
 
 function setup() {
   createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT)
+  noCursor()
   time = 0
 }
 
@@ -15,6 +16,7 @@ function draw() {
   if (!cursorOverPoint(mouseX, mouseY)) {
     drawCursorAnimation()
   } else {
+    drawCursorAnimation()
     text(`(${mouseX},${mouseY})`, mouseX, mouseY)
   }
 
