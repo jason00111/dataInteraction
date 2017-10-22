@@ -19,18 +19,16 @@ function draw() {
   const angle = t*speed
 
   drawPoint(
-    size * Math.cos(angle) + (CANVAS_WIDTH/2),
-    size * Math.sin(angle) + (CANVAS_HEIGHT/2)
+    size * Math.cos(angle) + mouseX,
+    size * Math.sin(angle) + mouseY
   )
 
   drawPoint(
-    -size * Math.cos(angle) + (CANVAS_WIDTH/2),
-    -size * Math.sin(angle) + (CANVAS_HEIGHT/2)
+    -size * Math.cos(angle) + mouseX,
+    -size * Math.sin(angle) + mouseY
   )
 
   t++
-
-
 
 
   plotData([
