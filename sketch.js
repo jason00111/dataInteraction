@@ -13,6 +13,13 @@ function draw() {
 
   background(255)
 
+  plotData([
+      [2, 3, 2.7, 3.2, 4.1],
+      [10, 14, 12, 15, 20]
+    ],
+    'timeSeries'
+  )
+
   if (!cursorOverPoint(mouseX, mouseY)) {
     drawCursorAnimation()
   } else {
@@ -24,50 +31,40 @@ function draw() {
 
   points = []
 
-  plotData([
-    ["1307576477","26.591000000000","1.000000000000"],
-    ["1307576818","28.000000000000","1.000000000000"],
-    ["1307576906","29.000000000000","0.880000000000"],
-    ["1307577066","29.999900000000","1.500000000000"],
-    ["1307579245","29.500000000000","1.000000000000"],
-    ["1307582051","30.000000000000","3.250000000000"],
-    ["1307584965","29.500000000000","1.000000000000"]
-  ],
-    [ 'none', 'point', 'bar']
-  )
-
   // plotData([
-  //     [2, 3, 2.7, 3.2, 4.1],
-  //     [10, 14, 12, 15, 20]
+  //   ["1307576477","26.591000000000","1.000000000000"],
+  //   ["1307576818","28.000000000000","1.000000000000"],
+  //   ["1307576906","29.000000000000","0.880000000000"],
+  //   ["1307577066","29.999900000000","1.500000000000"],
+  //   ["1307579245","29.500000000000","1.000000000000"],
+  //   ["1307582051","30.000000000000","3.250000000000"],
+  //   ["1307584965","29.500000000000","1.000000000000"]
   // ],
-  //   'timeSeries'
+  //   [ 'none', 'point', 'bar']
   // )
-
-  // plotData([2, 3, 2.7, 3.2, 4.1], 'timeSeries')
 }
 
-const speed=0.1, size=10
+const speed=0.1, animationSize=5, pointRadius=5
 
 function cursorOverPoint(x, y) {
-  return points.find(point => Math.hypot(x - point[0], y - point[1]) < size)
+  return points.find(point => (
+    Math.hypot(x - point[0], y - point[1]) < animationSize + pointRadius
+  ))
 }
 
 function drawCursorAnimation() {
-  const angle = time*speed
-
-  drawPoint(
-    size * Math.cos(angle) + mouseX,
-    size * Math.sin(angle) + mouseY
-  )
-
-  drawPoint(
-    -size * Math.cos(angle) + mouseX,
-    -size * Math.sin(angle) + mouseY
-  )
+  let n=0
+  while (n<100) {
+    n++
+    point(
+      animationSize/2*randomGaussian() + mouseX,
+      animationSize/2*randomGaussian() + mouseY
+    )
+  }
 }
 
 function drawPoint(x, y) {
-  ellipse(x, y, 5, 5)
+  ellipse(x, y, pointRadius, pointRadius)
   points.push([x,y])
 }
 
