@@ -11,7 +11,7 @@ function setup() {
 
 function draw() {
 
-  background(255)
+  background(127)
 
   plotData([
       [2, 3, 2.7, 3.2, 4.1],
@@ -23,7 +23,7 @@ function draw() {
   if (!cursorOverPoint(mouseX, mouseY)) {
     drawCursorAnimation()
   } else {
-    // text(`(${mouseX},${mouseY})`, mouseX, mouseY)
+    text(`(${mouseX},${mouseY})`, mouseX, mouseY)
     drawCursorAnimation()
   }
 
@@ -51,12 +51,12 @@ function cursorOverPoint(x, y) {
     Math.hypot(x - point[0], y - point[1]) < animationSize + pointRadius
   ))
 }
-// ${Math.floor(random(0,256))}
+
 function drawCursorAnimation() {
   let n=0
   while (n<100) {
     n++
-    stroke(color(`rgba(0, 0, 0, 0.4)`))
+    stroke(color(`hsla(${Math.floor(random(0,360))}, 100%, 50%, 0.4)`))
     point(
       animationSize/2*randomGaussian() + mouseX,
       animationSize/2*randomGaussian() + mouseY
