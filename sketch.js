@@ -1,35 +1,26 @@
 const CANVAS_WIDTH = 500, CANVAS_HEIGHT = 500,
       LEFT = 10, TOP = 10
 
-let t = 0
-
-const speed=0.1, size=10
-
+let time = 0, points = []
 
 function setup() {
   createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT)
-  t = 0
+  time = 0
 }
-
 
 function draw() {
 
   background(255)
 
-  const angle = t*speed
+  if (!cursorOverPoint(mouseX, mouseY)) {
+    drawCursorAnimation()
+  } else {
+    text(`(${mouseX},${mouseY})`, mouseX, mouseY)
+  }
 
-  drawPoint(
-    size * Math.cos(angle) + mouseX,
-    size * Math.sin(angle) + mouseY
-  )
+  time++
 
-  drawPoint(
-    -size * Math.cos(angle) + mouseX,
-    -size * Math.sin(angle) + mouseY
-  )
-
-  t++
-
+  points = []
 
   plotData([
     ["1307576477","26.591000000000","1.000000000000"],
@@ -53,8 +44,29 @@ function draw() {
   // plotData([2, 3, 2.7, 3.2, 4.1], 'timeSeries')
 }
 
+const speed=0.1, size=10
+
+function cursorOverPoint(x, y) {
+  return points.find(point => Math.hypot(x - point[0], y - point[1]) < size)
+}
+
+function drawCursorAnimation() {
+  const angle = time*speed
+
+  drawPoint(
+    size * Math.cos(angle) + mouseX,
+    size * Math.sin(angle) + mouseY
+  )
+
+  drawPoint(
+    -size * Math.cos(angle) + mouseX,
+    -size * Math.sin(angle) + mouseY
+  )
+}
+
 function drawPoint(x, y) {
   ellipse(x, y, 5, 5)
+  points.push([x,y])
 }
 
 function drawTick(point, horizontal, format) {
