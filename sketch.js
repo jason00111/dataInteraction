@@ -23,8 +23,8 @@ function draw() {
   if (!cursorOverPoint(mouseX, mouseY)) {
     drawCursorAnimation()
   } else {
+    // text(`(${mouseX},${mouseY})`, mouseX, mouseY)
     drawCursorAnimation()
-    text(`(${mouseX},${mouseY})`, mouseX, mouseY)
   }
 
   time++
@@ -51,16 +51,18 @@ function cursorOverPoint(x, y) {
     Math.hypot(x - point[0], y - point[1]) < animationSize + pointRadius
   ))
 }
-
+// ${Math.floor(random(0,256))}
 function drawCursorAnimation() {
   let n=0
   while (n<100) {
     n++
+    stroke(color(`rgba(0, 0, 0, 0.4)`))
     point(
       animationSize/2*randomGaussian() + mouseX,
       animationSize/2*randomGaussian() + mouseY
     )
   }
+  stroke(color('black'))
 }
 
 function drawPoint(x, y) {
